@@ -28,6 +28,7 @@ class CardDeck {
     return cards.shift();
   }
 }
+
 function buildCards() {
   const suite = ["♠︎", "♣︎", "♥︎", "♦︎"];
   const rank = [
@@ -51,12 +52,16 @@ function buildCards() {
       deck.push({ [suite[i]]: rank[j] });
     }
   }
-  return deck;
+  function shuffle(cards) {
+    for (let i = cards.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    return cards;
+  }
+  return shuffle(deck);
 }
 
 var cards = new CardDeck(buildCards());
-cards.shuffle();
-var n = new CardDeck(buildCards());
-n.shuffle();
 
-console.log(n.draw());
+console.log(cards.draw());
