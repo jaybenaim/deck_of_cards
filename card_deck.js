@@ -1,12 +1,33 @@
-function init(cards = buildCards) {
-  var cards = cards;
-  function size() {
+// CLOSURE //
+
+// function init(cards) {
+//   var cards = cards;
+//   function size() {
+//     return cards.length;
+//   }
+
+//   return size();
+// }
+class CardDeck {
+  constructor(cards) {
+    this.cards = cards;
+  }
+  size() {
+    return this.cards.length;
+  }
+  shuffle() {
+    let cards = this.cards;
+    for (let i = cards.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
     return cards;
   }
-
-  return size();
+  draw() {
+    let cards = this.cards;
+    return cards.shift();
+  }
 }
-
 function buildCards() {
   const suite = ["♠︎", "♣︎", "♥︎", "♦︎"];
   const rank = [
@@ -32,4 +53,10 @@ function buildCards() {
   }
   return deck;
 }
-console.log(init(buildCards()));
+
+var cards = new CardDeck(buildCards());
+cards.shuffle();
+var n = new CardDeck(buildCards());
+n.shuffle();
+
+console.log(n.draw());
